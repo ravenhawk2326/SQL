@@ -1,0 +1,28 @@
+--Create a computer parts database
+
+CREATE TABLE computers (id INTEGER PRIMARY KEY, part_name TEXT, manufacture_name TEXT, release_year INTEGER, Price_sold INTEGER);
+
+INSERT INTO computers VALUES 
+(1, "PC Case", "Caselab's", 2020, 203.95),
+(2, "PC Fan's 120mm", "NOCTUA NE", 2021, 13.55),
+(3, "PC Power Supple 1200 Watt", "ROG", 2020, 108.95),
+(4, "PC Graphics Card R9 290", "EVGA", 2022, 1203.95),
+(5, "PC Ram 8GB 1866 DDR3", "G.Skill", 2021, 35.95),
+(6, "PC Mother Board ROG Mini ATX", "Intel", 2021, 283.95),
+(7, "PC Case","AMD", 2021, 500.95),
+(8, "PC Fan's 120mm", "PC LAB'S", 2021, 15.55),
+(9, "PC Power Supple 1200 Watt", "Secrect Lab's", 2021, 83.95),
+(10, "PC Graphics Card R9 290", "Caselab's", 2021, 883.95),
+(11, "PC Ram 8GB 1866 DDR3", "NOCTUA NE", 2021, 183.95),
+(12, "PC Mother Board ROG Mini ATX", "ROG", 2021, 783.95),
+(13, "PC Case", "EVGA", 2021, 983.95),
+(14, "PC Fan's 120mm", "AMD", 2021, 233.95),
+(15, "PC Power Supple 1200 Watt", "G.Skill", 2022, 1283.95);
+
+--display the database ordered by price.
+Select * From computers
+Order by Price_Sold desc;
+
+--what is the avg price of items in the Computer Parts Store?
+Select Avg(Price_sold) "Avg Price of Computer Parts"
+From computers
