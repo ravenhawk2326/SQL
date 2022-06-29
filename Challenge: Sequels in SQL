@@ -1,0 +1,30 @@
+CREATE TABLE movies (id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT,
+    released INTEGER,
+    sequel_id INTEGER);
+
+INSERT INTO movies 
+    VALUES (1, "Harry Potter and the Philosopher's Stone", 2001, 2);
+INSERT INTO movies 
+    VALUES (2, "Harry Potter and the Chamber of Secrets", 2002, 3);
+INSERT INTO movies 
+    VALUES (3, "Harry Potter and the Prisoner of Azkaban", 2004, 4);
+INSERT INTO movies 
+    VALUES (4, "Harry Potter and the Goblet of Fire", 2005, 5);
+INSERT INTO movies 
+    VALUES (5, "Harry Potter and the Order of the Phoenix ", 2007, 6);
+INSERT INTO movies 
+    VALUES (6, "Harry Potter and the Half-Blood Prince", 2009, 7);
+INSERT INTO movies 
+    VALUES (7, "Harry Potter and the Deathly Hallows – Part 1", 2010, 8);
+INSERT INTO movies 
+    VALUES (8, "Harry Potter and the Deathly Hallows – Part 2", 2011, NULL);
+
+//This shows a self join, in doing so you are looking at the title of each movie and the movie that comes after it.//
+//As you can see with the movies.title and then you are making a name for the sequel aka sequels.title, this is so as you self join it has a column to state the movie that comes after it.//
+//You are using self join by doing Left Oter Join with movies sequels and finishing with the On movies.sequel_id = sequels.id;.//
+
+Select movies.title, sequels.title
+From movies
+Left Outer Join movies sequels
+On movies.sequel_id = sequels.id;
