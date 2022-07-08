@@ -1,0 +1,59 @@
+//This is the evaluation of JOIN.//
+
+CREATE TABLE Famous_People (id INTEGER PRIMARY KEY,
+fullname TEXT,
+age TEXT,
+occupation integer);
+
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Leonardo Dicaprio", "11-11-1974", 1);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Willie Nelson", "04-29-1933", 2);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Misty Copeland", "09-10-1982", 3);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Doutzen Kroes", "01-23-1985", 4);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Jack Nicholson", "04-22-1937", 1);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Christoph Waltz", "10-04-1956", 1);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Bob Fosse", "04-27-1911", 3);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Thom Yorke", "10-07-1968", 2);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Kate Moss", "01-16-1974", 4);
+INSERT INTO Famous_People (fullname, age, occupation)
+VALUES ("Cary Grant", "01-18-1904", 5);
+
+
+CREATE TABLE Profession (id INTEGER PRIMARY KEY,
+title TEXT);
+
+INSERT INTO Profession VALUES (1, "Actor");
+INSERT INTO Profession VALUES (2, "Musician");
+INSERT INTO Profession VALUES (3, "Dancer");
+INSERT INTO Profession VALUES (4, "Model");
+INSERT INTO Profession VALUES (5, "Actor");
+
+CREATE TABLE Studios (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    person1_id INTEGER,
+    person2_id INTEGER);
+    
+INSERT Into Studios (person1_id, person2_id)
+    VALUES (1,4);
+INSERT Into Studios (person1_id, person2_id)
+    VALUES (2,3);
+    
+
+Select fullname, title From Famous_People
+    Join Profession
+    On Famous_People.occupation = Profession.id 
+    GROUP BY title;
+
+Select a.fullname, b.fullname From Studios
+    Join Famous_People a
+    On a.id = studios.person1_id
+    Join Famous_People b
+    On b.id = studios.person2_id
