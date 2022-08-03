@@ -32,16 +32,23 @@ ORDER BY title asc;
 --If you look at the end of "netflix_titles_info" you will see TITLES this is shortening "netflix_titles_info" to titles.
 --LEFT JOIN giving you where to JOIN and then using the ON to show what to LEFT JOIN 
 --If you look at the end of "netflix_people" you will see PEOPLE this is shortening "netflix_people" to people.
---ON is showing you connecting tables in the JOIN 
---ORDER BY is showing the type of "title" in ascending order.
+--ON is showing you connecting tables in the JOIN with titles.show_id=people.show_id
+--WHERE is showing what you are looking for in titles.title='Bright Star' with titles being the place and title='Bright Star' what you are looking for.
 
 SELECT director
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
 LEFT JOIN  "CharlotteChaze/BreakIntoTech"."netflix_people" people
 ON titles.show_id=people.show_id
-where titles.title='Bright Star'
+WHERE titles.title='Bright Star'
 
-#5. What is the oldest movie in the database and what year was it made? 
+--#5. What is the oldest movie in the database and what year was it made? 
+--As you can see from the SELECT you are seaching by title and because you are looking for the oldest year you would look for the lowest number min(release_year). 
+--FROM is showing the data base along with netflix each is surrounded with double "" and a "." between them to distinguish between the two of them. 
+--WHERE is showing what you are looking for by type with type='Movie' being the place that you are looking.
+--GROUP BY shows that you are wanting title, release_year together.
+--ORDER BY shows that you want release_year in ascending order.
+--LIMIT shows that you are only wanting x number shown on your search.
+
 SELECT title, min(release_year) 
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
 WHERE type='Movie'
@@ -49,13 +56,24 @@ GROUP BY title, release_year
 ORDER BY release_year asc
 LIMIT 1;
 
-#
-##1. This shows a range of what you are looking for and the time and date to look between.
+---------------------------------------------------------------------------------
+--This is the beginning of a new search with new data pulled into SQLiteStudios--
+---------------------------------------------------------------------------------
+
+--##1. This shows a range of what you are looking for and the time and date to look between.
+--SELECT As you can see from the SELECT you are seaching orderdate. 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a range using between giving date, time AND date, time again which shows the range you are looking between.
+
 SELECT orderdate
 FROM BIT_DB.FebSales
 WHERE orderdate between '02/13/19 00:00' AND '02/18/19 00:00'
 
-##2. 
+--##2. This shows location of what you are looking for with the time and date that you are looking for. 
+--SELECT As you can see from the SELECT you are seaching orderdate. 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a range using between giving date, time AND date, time again which shows the range you are looking between.
+
 SELECT location
 FROM BIT_DB.FebSales 
 WHERE orderdate = '02/18/19 01:35'
