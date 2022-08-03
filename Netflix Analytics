@@ -1,29 +1,48 @@
-#In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
+--#In this SQL code, I'm querying a database that's holding Nexflix data to answer questions about the data. 
+--This data dive was done using SQLiteStudios pulling the data into it and then searching.
 
-#1. How many movie titles are there in the database? (movies only, not tv shows) 
-select count(*) 
+--#1. How many movie titles are there in the database? (movies only, not tv shows) 
+--As you can see from the select you are doing a open count of everything. 
+--From is showing the data base along with netflix each is surrounded with double "" and a "." between them to distinguish between the two of them.
+--WHERE is showing the type of "Movie"
+
+SELECT count(*) 
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
 WHERE type='Movie';
 
-#2. When was the most recent batch of tv shows and/or movies added to the database? 
-select max(date(date_added))
+--#2. When was the most recent batch of tv shows and/or movies added to the database? 
+--As you can see from the select you are using MAX breaking it down by (date(date_added)). 
+--From is showing the data base along with netflix each is surrounded with double "" and a "." between them to distinguish between the two of them.
+
+SELECT max(date(date_added))
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info";
 
-#3. List all the movies and tv shows in alphabetical order. 
-select title
+--#3. List all the movies and tv shows in alphabetical order. 
+--As you can see from the select you are seaching by title. 
+--From is showing the data base along with netflix each is surrounded with double "" and a "." between them to distinguish between the two of them.
+--ORDER BY is showing the type of "title" in ascending order.
+
+SELECT title
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
 ORDER BY title asc;
 
-#4. Who was the Director for the movie Bright Star? 
-select 
-director
+--#4. Who was the Director for the movie Bright Star? 
+--As you can see from the SELECT you are seaching by director. 
+--FROM is showing the data base along with netflix each is surrounded with double "" and a "." between them to distinguish between the two of them. 
+--If you look at the end of "netflix_titles_info" you will see TITLES this is shortening "netflix_titles_info" to titles.
+--LEFT JOIN giving you where to JOIN and then using the ON to show what to LEFT JOIN 
+--If you look at the end of "netflix_people" you will see PEOPLE this is shortening "netflix_people" to people.
+--ON is showing you connecting tables in the JOIN 
+--ORDER BY is showing the type of "title" in ascending order.
+
+SELECT director
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info" titles
 LEFT JOIN  "CharlotteChaze/BreakIntoTech"."netflix_people" people
 ON titles.show_id=people.show_id
 where titles.title='Bright Star'
 
 #5. What is the oldest movie in the database and what year was it made? 
-select title, min(release_year) 
+SELECT title, min(release_year) 
 FROM "CharlotteChaze/BreakIntoTech"."netflix_titles_info"
 WHERE type='Movie'
 GROUP BY title, release_year
