@@ -94,7 +94,7 @@ WHERE orderdate like '02/18/19%'
 --WHERE is showing what you are looking for by type with a Product, 'like' searches the column you give it for the values you type in after like.
 --'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
 
-SELECT distinct Product
+SELECT DISTINCT Product
 FROM BIT_DB.FebSales
 WHERE Product like '%Batteries%'
 
@@ -104,7 +104,7 @@ WHERE Product like '%Batteries%'
 --WHERE is showing what you are looking for by type with a Price, 'like' searches the column you give it for the values you type in after like.
 --'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
 
-SELECT distinct Product, Price
+SELECT DISTINCT Product, Price
 FROM BIT_DB.FebSales 
 WHERE Price like '%.99'
 
@@ -120,3 +120,80 @@ FROM BIT_DB.FebSales
 WHERE location like '%Los Angeles%'
 GROUP BY Product
 
+---------------------------------------------------------------------------------
+--This is the beginning of a new search with new data pulled into SQLiteStudios--
+---------------------------------------------------------------------------------
+
+--###1. Which locations in New York received at least 3 orders in January, and how many orders did they each receive?
+--SELECT DISTINCT statement is used to return only differenct values as you can see from the SELECT you are seaching location and you are wanting count(orderID). 
+--FROM is showing the data base along with JanSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a location, 'LIKE' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+--GROUP BY statement groups rows that have the same values into summary rows for the location
+--HAVING was used because WHERE can not be used, HAVING COUNT (orderID) > 2, so the (orderID) is looking for anything less then 2 in this example. 
+
+SELECT DISTINCT location, count(orderID)
+FROM BIT_DB.JanSales
+WHERE location LIKE '%NY%'
+GROUP BY location
+HAVING COUNT(orderID)>2
+
+--###2. How many of each type of headphone was sold in February?
+--SELECT As you can see from the SELECT you are seaching for sum(quantity) as quantity. 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder.
+--WHERE is showing what you are looking for by type with a location, 'like' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+--GROUP BY statement groups rows that have the same values into summary rows for the Product
+
+SELECT sum(Quantity) as quantity,
+Product
+FROM BIT_DB.FebSales 
+WHERE Product LIKE '%Headphones%'
+GROUP BY Product
+
+--###3. What was the average amount spent per account in February?
+--SELECT As you can see from the SELECT you are seaching Product and sum(quantity). 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a location, 'like' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+--GROUP BY statement groups rows that have the same values into summary rows for the Product
+
+SELECT sum(quantity*price)/count(cust.acctnum)
+FROM BIT_DB.FebSales Feb
+
+LEFT JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+
+# OR # 
+
+SELECT avg(quantity*price)
+FROM BIT_DB.FebSales Feb
+
+LEFT JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+
+--###4. What was the average quantity of products purchased per account in February? 
+--SELECT As you can see from the SELECT you are seaching Product and sum(quantity). 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a location, 'like' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+--GROUP BY statement groups rows that have the same values into summary rows for the Product
+
+select sum(quantity)/count(cust.acctnum)
+FROM BIT_DB.FebSales Feb
+
+LEFT JOIN BIT_DB.customers cust
+ON FEB.orderid=cust.order_id
+
+--###5. Which product brought in the most revenue in January and how much revenue did it bring in total? 
+--SELECT As you can see from the SELECT you are seaching Product and sum(quantity). 
+--FROM is showing the data base along with JanSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a location, 'like' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+--GROUP BY statement groups rows that have the same values into summary rows for the Product
+
+SELECT product, sum(quantity*price)
+FROM BIT_DB.JanSales 
+GROUP BY product
+ORDER BY sum(quantity*price) desc 
+LIMIT 1
