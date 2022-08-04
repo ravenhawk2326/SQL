@@ -78,23 +78,45 @@ SELECT location
 FROM BIT_DB.FebSales 
 WHERE orderdate = '02/18/19 01:35'
 
-##3. 
+--##3. Search for the quantity of sales on a given date.
+--SELECT As you can see from the SELECT you are seaching sum(quantity). 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a orderdate, 'like' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+
 SELECT sum(quantity)
 FROM BIT_DB.FebSales 
 WHERE orderdate like '02/18/19%'
 
-##4. 
+--##4. Search for the Product Batteries
+--SELECT DISTINCT statement is used to return only differenct values as you can see from the SELECT you are seaching Product. 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a Product, 'like' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+
 SELECT distinct Product
 FROM BIT_DB.FebSales
 WHERE Product like '%Batteries%'
 
-##5. 
+--##5. Search for Product and Price.
+--SELECT DISTINCT statement is used to return only differenct values as you can see from the SELECT you are seaching Product and Price. 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a Price, 'like' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+
 SELECT distinct Product, Price
 FROM BIT_DB.FebSales 
 WHERE Price like '%.99'
 
-##6.
+--##6. Search for Product and Quantity of item.
+--SELECT As you can see from the SELECT you are seaching Product and sum(quantity). 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--WHERE is showing what you are looking for by type with a location, 'like' searches the column you give it for the values you type in after like.
+--'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
+--GROUP BY statement groups rows that have the same values into summary rows for the Product
+
 SELECT Product, SUM(quantity)
 FROM BIT_DB.FebSales 
 WHERE location like '%Los Angeles%'
 GROUP BY Product
+
