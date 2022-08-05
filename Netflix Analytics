@@ -164,7 +164,13 @@ FROM BIT_DB.FebSales Feb
 LEFT JOIN BIT_DB.customers cust
 ON FEB.orderid=cust.order_id
 
-# OR # 
+--# OR # This is also an alternative way to do the same seach in giving you the average that was requested.
+
+--SELECT As you can see from the SELECT you are finding the average avg(quantity*price) in doing this you are taking the quantity * price.
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
+--LEFT JOIN giving you where to JOIN and then using the ON to show what to LEFT JOIN 
+--If you look at the end of "BIT_DB.customers cust" you will see CUST this is shortening "BIT_DB.customers" to cust.
+--ON is showing you connecting tables in the JOIN with FEB.orderid=cust.order_id
 
 SELECT avg(quantity*price)
 FROM BIT_DB.FebSales Feb
@@ -172,24 +178,24 @@ LEFT JOIN BIT_DB.customers cust
 ON FEB.orderid=cust.order_id
 
 --###4. What was the average quantity of products purchased per account in February? 
---SELECT As you can see from the SELECT you are seaching Product and sum(quantity). 
---FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
---WHERE is showing what you are looking for by type with a location, 'like' searches the column you give it for the values you type in after like.
---'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
---GROUP BY statement groups rows that have the same values into summary rows for the Product
+--SELECT As you can see from the SELECT you are seaching sum(quantity)/count(cust.acctnum) this is broken down by quantity divided by,
+--count which is customers acctnum that will give to you as the sum you are asking for. 
+--FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder, and renamed Feb at the end. 
+--LEFT JOIN giving you where to JOIN and then using the ON to show what to LEFT JOIN 
+--If you look at the end of "BIT_DB.customers cust" you will see CUST this is shortening "BIT_DB.customers" to cust.
+--ON is showing you connecting tables in the JOIN with FEB.orderid=cust.order_id
 
 select sum(quantity)/count(cust.acctnum)
 FROM BIT_DB.FebSales Feb
-
 LEFT JOIN BIT_DB.customers cust
 ON FEB.orderid=cust.order_id
 
 --###5. Which product brought in the most revenue in January and how much revenue did it bring in total? 
---SELECT As you can see from the SELECT you are seaching Product and sum(quantity). 
+--SELECT As you can see from the SELECT you are seaching Product and sum(quantity*price). 
 --FROM is showing the data base along with JanSales each is distinguished with a "." between them to show the data base and then the folder. 
---WHERE is showing what you are looking for by type with a location, 'like' searches the column you give it for the values you type in after like.
---'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
 --GROUP BY statement groups rows that have the same values into summary rows for the Product
+--GROUP BY statement groups rows that have the same values into summary rows for the sum(quantity*price) desc
+--LIMIT 1 will only show the results of your search but limit it to the number you have stated.
 
 SELECT product, sum(quantity*price)
 FROM BIT_DB.JanSales 
