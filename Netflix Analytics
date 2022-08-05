@@ -152,15 +152,15 @@ WHERE Product LIKE '%Headphones%'
 GROUP BY Product
 
 --###3. What was the average amount spent per account in February?
---SELECT As you can see from the SELECT you are seaching Product and sum(quantity). 
+--SELECT As you can see from the SELECT you are seaching sum(quantity*price)/count(cust.acctnum) in doing this you are taking the quantity * price,
+--with count(quantity.acctnum) divided. 
 --FROM is showing the data base along with FebSales each is distinguished with a "." between them to show the data base and then the folder. 
---WHERE is showing what you are looking for by type with a location, 'like' searches the column you give it for the values you type in after like.
---'%' tells the SQL code that you are searching for a value that can match anything no matter the hour of min attached to it.
---GROUP BY statement groups rows that have the same values into summary rows for the Product
+--LEFT JOIN giving you where to JOIN and then using the ON to show what to LEFT JOIN 
+--If you look at the end of "BIT_DB.customers cust" you will see CUST this is shortening "BIT_DB.customers" to cust.
+--ON is showing you connecting tables in the JOIN with FEB.orderid=cust.order_id
 
 SELECT sum(quantity*price)/count(cust.acctnum)
 FROM BIT_DB.FebSales Feb
-
 LEFT JOIN BIT_DB.customers cust
 ON FEB.orderid=cust.order_id
 
@@ -168,7 +168,6 @@ ON FEB.orderid=cust.order_id
 
 SELECT avg(quantity*price)
 FROM BIT_DB.FebSales Feb
-
 LEFT JOIN BIT_DB.customers cust
 ON FEB.orderid=cust.order_id
 
