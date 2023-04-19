@@ -1,36 +1,48 @@
+-- Create a table for customers with id, name, and email fields
 CREATE TABLE customers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    email TEXT);
-    
+    email TEXT
+);
+
+-- Insert data into the customers table
+
 INSERT INTO customers (name, email) VALUES ("Doctor Who", "doctorwho@timelords.com");
 INSERT INTO customers (name, email) VALUES ("Harry Potter", "harry@potter.com");
 INSERT INTO customers (name, email) VALUES ("Captain Awesome", "captain@awesome.com");
+
+-- Create a table for orders with id, customer_id, item, and price fields
 
 CREATE TABLE orders (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     customer_id INTEGER,
     item TEXT,
-    price REAL);
+    price REAL
+);
 
-INSERT INTO orders (customer_id, item, price)
-    VALUES (1, "Sonic Screwdriver", 1000.00);
-INSERT INTO orders (customer_id, item, price)
-    VALUES (2, "High Quality Broomstick", 40.00);
-INSERT INTO orders (customer_id, item, price)
-    VALUES (1, "TARDIS", 1000000.00);
+-- Insert data into the orders table
 
-//This is making a table with name, email, item and price.//
-//Looking at Select you will see it takes the first letter of the table of customers and makes that as c.name you then see from the other table you get an O from Orders table.//
-Select c.name, c.email, o.item, o.price
-From customers c
-Left Outer Join orders o
-On c.id = o.customer_id;
+INSERT INTO orders (customer_id, item, price) VALUES (1, "Sonic Screwdriver", 1000.00);
+INSERT INTO orders (customer_id, item, price) VALUES (2, "High Quality Broomstick", 40.00);
+INSERT INTO orders (customer_id, item, price) VALUES (1, "TARDIS", 1000000.00);
 
-//The same is for this quary here but with the added part of Group By using name from the customers table and Order by from spent in descending order.//
-Select c.name, c.email, sum(o.price) as spent 
-From customers c
-Left Outer Join orders o
-On c.id = o.customer_id
-Group By c.name
-Order By spent desc;
+-- This query joins the customers and orders tables on the customer_id field.
+-- It selects the name, email, item, and price columns from the tables.
+-- If there is no corresponding order for a customer, the columns from the orders table will be NULL.
+-- This is an example of a left outer join.
+
+SELECT c.name, c.email, o.item, o.price
+FROM customers c
+LEFT OUTER JOIN orders o
+ON c.id = o.customer_id;
+
+-- This query is similar to the previous one, but it also groups the results by customer name and calculates the sum of prices for each customer.
+-- It selects the name, email, and spent columns from the tables.
+-- It orders the results by spent in descending order.
+
+SELECT c.name, c.email, SUM(o.price) AS spent 
+FROM customers c
+LEFT OUTER JOIN orders o
+ON c.id = o.customer_id
+GROUP BY c.name
+ORDER BY spent DESC;
